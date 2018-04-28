@@ -27,7 +27,26 @@
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G6N-vu-a6e" userLabel="ScoreBoardView">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O2K-oU-muh">
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gjy-rN-oXE" userLabel="Timer Label">
+                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="O2K-oU-muh" secondAttribute="bottom" id="MoH-mI-JF9"/>
+                                                    <constraint firstItem="O2K-oU-muh" firstAttribute="leading" secondItem="G6N-vu-a6e" secondAttribute="leading" id="fvD-Qy-Gnk"/>
+                                                    <constraint firstItem="O2K-oU-muh" firstAttribute="top" secondItem="G6N-vu-a6e" secondAttribute="top" id="nFe-zs-Vml"/>
+                                                    <constraint firstAttribute="trailing" secondItem="O2K-oU-muh" secondAttribute="trailing" id="s3N-1U-ma9"/>
+                                                </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="naY-dI-tmh" userLabel="GamePlayView">
                                                 <rect key="frame" x="0.0" y="64.5" width="375" height="582.5"/>
@@ -57,6 +76,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="timerLabel" destination="gjy-rN-oXE" id="lcC-ab-V50"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
