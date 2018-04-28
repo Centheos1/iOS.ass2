@@ -8,54 +8,13 @@
 
 import UIKit
 
-//class ViewController: UIViewController {
-//
-//    @IBOutlet weak var timerLabel: UILabel!
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        print("Started")
-//        timerLabel.text = "Start Now"
-//        print("Starting")
-//        start()
-//    }
-//
-//    override func didReceiveMemoryWarning() {
-//        super.didReceiveMemoryWarning()
-//    }
-//
-//    func start() {
-//        print("Inside of start()")
-//        let time: Int = 10
-//        print(time)
-//        timerLabel.text = String(time)
-//        timer(time: time)
-//    }
-//
-//    func timer(time: Int) {
-//        print("Inside of timer()")
-//        var clock = time
-//        if clock > 0 {
-//            clock -= 1
-//            print(clock)
-//            timerLabel.text = String(clock)
-//        } else {
-//            timerLabel.text = "Times Up"
-//            print("Times Up")
-//
-//        }
-//
-//        Thread.sleep(forTimeInterval: 1)
-//        timer(time: clock)
-//
-//    }
-//
-//}
-
-
 //https://medium.com/ios-os-x-development/build-an-stopwatch-with-swift-3-0-c7040818a10f
 //MARK: - UIViewController Properties
 class ViewController: UIViewController {
+
+    
+    
+//_____________________________________________________________ Start Timer
     
     //MARK: - IBOutlets
 //    @IBOutlet weak var startButton: UIButton!
@@ -130,12 +89,45 @@ class ViewController: UIViewController {
         return String(format:"%i:%02i", minutes, seconds)
     }
     
+    //_____________________________________________________________ End Timer
     //MARK: - Super Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         timerLabel.text = "Start Now"
         runTimer()
 //        pauseButton.isEnabled = false
+        
+        let circleFrame = CGRect(x: 0, y: 0, width: 40.0, height: 40.0)
+        let circle = UIView(frame: circleFrame)
+        circle.backgroundColor = .red
+        circle.layer.cornerRadius = 20
+        circle.layer.borderColor = UIColor.black.cgColor
+        circle.layer.borderWidth = 1
+        circle.center = self.view.center
+        
+        self.view.addSubview(circle)
+        
+        
+        self.myTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer: Timer)  in self.update(view: circle)
+        })
+    }
+    
+    var myTimer: Timer?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+
+    }
+    
+    func update(view : UIView)  {
+        let circle = view
+        UIView.animate(withDuration: 0.5, animations: {
+            circle.alpha = 0.75
+            circle.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+//            circle.transform = CGAffineTransform(translationX: +1.0, y: -1.0)
+        }) { (_) in
+            circle.transform = CGAffineTransform.identity
+        }
     }
 }
 
