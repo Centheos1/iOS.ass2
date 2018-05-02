@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Game View Controller-->
+        <scene sceneID="tXr-a1-R10">
+            <objects>
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="Bubble_Ninja" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bIu-4n-krB">
+                                <rect key="frame" x="10" y="30" width="355" height="627"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="HT0-Er-giY">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="627"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nameLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5B-wS-J35">
+                                                <rect key="frame" x="135.5" y="0.0" width="84" height="157"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="scoreLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7q-h6-N0P">
+                                                <rect key="frame" x="135.5" y="157" width="84" height="156.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWm-Lv-yVw">
+                                                <rect key="frame" x="101" y="313.5" width="153" height="157"/>
+                                                <state key="normal" title="Add Score and Submit"/>
+                                                <connections>
+                                                    <action selector="addScoreAndSubmitToGC:" destination="BV1-FR-VrT" eventType="touchUpInside" id="BJv-G1-P3r"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEJ-mx-LUt">
+                                                <rect key="frame" x="113" y="470.5" width="129" height="156.5"/>
+                                                <state key="normal" title="View Leader Board"/>
+                                                <connections>
+                                                    <action selector="checkGCLeaderboard:" destination="BV1-FR-VrT" eventType="touchUpInside" id="37P-IC-ox6"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="HT0-Er-giY" firstAttribute="leading" secondItem="bIu-4n-krB" secondAttribute="leading" id="2Ts-26-jAi"/>
+                                    <constraint firstAttribute="bottom" secondItem="HT0-Er-giY" secondAttribute="bottom" id="GLo-Xe-9uK"/>
+                                    <constraint firstItem="HT0-Er-giY" firstAttribute="top" secondItem="bIu-4n-krB" secondAttribute="top" id="SDj-mc-P86"/>
+                                    <constraint firstAttribute="trailing" secondItem="HT0-Er-giY" secondAttribute="trailing" id="VVe-x5-63R"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bIu-4n-krB" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="10" id="3gL-6E-KMJ"/>
+                            <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="bIu-4n-krB" secondAttribute="trailing" constant="10" id="ZLq-1a-Amr"/>
+                            <constraint firstItem="bIu-4n-krB" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" constant="10" id="n5E-Xs-7ue"/>
+                            <constraint firstItem="4qk-I5-YsI" firstAttribute="bottom" secondItem="bIu-4n-krB" secondAttribute="bottom" constant="10" id="vvQ-mC-mQH"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
+                    </view>
+                    <connections>
+                        <outlet property="nameLabel" destination="A5B-wS-J35" id="b8j-kD-p4s"/>
+                        <outlet property="scoreLabel" destination="G7q-h6-N0P" id="4e6-L0-xgh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="140" y="132.68365817091455"/>
+        </scene>
+    </scenes>
+</document>

@@ -11,12 +11,22 @@
 import SpriteKit
 import GameplayKit
 
+protocol GameSceneDelegate {
+    func gameOver()
+}
+
 // Type of bubble launches
 enum SequenceType: Int {
     case one, halfMax, max, chain, fastChain
 }
 
 class GameScene: SKScene {
+    
+//    @IBOutlet var gameScene: SKView!
+//    @IBOutlet weak var finalGameScore: UILabel!
+    
+    //    Declare delegate
+    var gameSceneDelegate: GameSceneDelegate?
 // View Parameters
     let viewWidth = 1024
     let viewHeight = 750
@@ -36,6 +46,7 @@ class GameScene: SKScene {
     var activeBubbles = [SKSpriteNode]()
     var maxActiveBubbles: Int = 15
     var multiplierLabel: SKLabelNode!
+    var addToScoreLabel: SKLabelNode!
 // Start countdown
     let startTimerLable = SKLabelNode(fontNamed: "Avenir Next Condensed Bold")
     var startCountDown: Timer!
@@ -48,7 +59,7 @@ class GameScene: SKScene {
 // Game timer menu
     let clockLabel = SKLabelNode(fontNamed: "Avenir Next Condensed Bold")
     var gameTimer: Timer!
-    var gameTime = 60
+    var gameTime = 20
 // End game
     var gameEnded = false
 // Game score menu
@@ -77,6 +88,17 @@ class GameScene: SKScene {
         multiplierLabel.alpha = 0
         multiplierLabel.zPosition = -1
         addChild(multiplierLabel)
+        
+        addToScoreLabel = SKLabelNode(fontNamed: "Avenir Next Condensed Bold")
+//        addToScoreLabel.text = "addToScoreLabel"
+        addToScoreLabel.horizontalAlignmentMode = .right
+        addToScoreLabel.verticalAlignmentMode = .center
+        addToScoreLabel.position = CGPoint(x: viewWidth - 30, y: viewHeight/2)
+        addToScoreLabel.fontSize = 60
+        addToScoreLabel.alpha = 0
+        addToScoreLabel.zPosition = -1
+//        addToScoreLabel.fontColor = UIColor.blue
+        addChild(addToScoreLabel)
         
 // Set the physics
         physicsWorld.gravity = CGVector(dx: 0, dy: gravity)
@@ -150,6 +172,7 @@ class GameScene: SKScene {
                 
 //  Check if consecutive colours were popped, apply score multiplier and show label if true
                 if lastPoppedName == nodeName {
+                    gameTime += 1
                     pointsMultiplier = 1.5
                     multiplierLabel.alpha = 0.8
                     animateNode(multiplierLabel)
@@ -175,6 +198,7 @@ class GameScene: SKScene {
                 let seq = SKAction.sequence([group, SKAction.removeFromParent()])
                 node.run(seq)
 // Add score and set last bubble popped label
+                let oldScore = score
                 switch nodeName {
                 case "bubbleRed":
                     score += 1 * pointsMultiplier
@@ -194,6 +218,13 @@ class GameScene: SKScene {
                 default:
                     score += 0
                     createlastBubblePop(imageName: "sliceLife")
+                }
+                
+                addToScoreLabel.text = "+\(Int(score - oldScore))"
+                addToScoreLabel.alpha = 0.8
+                animateNode(addToScoreLabel)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [unowned self] in
+                    self.addToScoreLabel.alpha = 0
                 }
 // Remove bubble from active bubble array
                 let index = activeBubbles.index(of: node as! SKSpriteNode)!
@@ -324,6 +355,17 @@ class GameScene: SKScene {
             lastBubbblePopImage.removeFromParent()
 //  End game
             gameEnded = true
+            if let finalScore: String = gameScore.text {
+//                finalGameScore.text = finalScore
+                print(finalScore)
+            }
+// Go to menu
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [unowned self] in
+                self.gameSceneDelegate?.gameOver()
+                }
+//            }
+            
+            
         } else {
             gameTime -= 1
             if gameTime >= 60 {
