@@ -37,13 +37,12 @@
 		367E1DA22096D8B600271111 /* ballRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 367E1DA02096D8B600271111 /* ballRed.png */; };
 		367E1DA42096FB0200271111 /* launch.caf in Resources */ = {isa = PBXBuildFile; fileRef = 367E1DA32096FB0200271111 /* launch.caf */; };
 		367E1DA6209709C100271111 /* whack.caf in Resources */ = {isa = PBXBuildFile; fileRef = 367E1DA5209709C100271111 /* whack.caf */; };
+		3696A6F1209B2A8400F033D9 /* icon@180.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3696A6F0209B2A8400F033D9 /* icon@180.jpg */; };
 		36E8AA8420970B96003A38AE /* bubbleBlueSliceHit.sks in Resources */ = {isa = PBXBuildFile; fileRef = 36E8AA8320970B96003A38AE /* bubbleBlueSliceHit.sks */; };
 		36E8AA8620970BCD003A38AE /* bubbleGreenSliceHit.sks in Resources */ = {isa = PBXBuildFile; fileRef = 36E8AA8520970BCC003A38AE /* bubbleGreenSliceHit.sks */; };
 		36E8AA8820970C05003A38AE /* bubbleBlackSliceHit.sks in Resources */ = {isa = PBXBuildFile; fileRef = 36E8AA8720970C05003A38AE /* bubbleBlackSliceHit.sks */; };
 		36E8AA8A20970C29003A38AE /* bubblePinkSliceHit.sks in Resources */ = {isa = PBXBuildFile; fileRef = 36E8AA8920970C29003A38AE /* bubblePinkSliceHit.sks */; };
 		36E8AA8C20970C4E003A38AE /* bubbleRedSliceHit.sks in Resources */ = {isa = PBXBuildFile; fileRef = 36E8AA8B20970C4E003A38AE /* bubbleRedSliceHit.sks */; };
-		36E8AA9220994773003A38AE /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E8AA9120994773003A38AE /* MenuScene.swift */; };
-		36E8AA9620995494003A38AE /* MenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 36E8AA9520995494003A38AE /* MenuScene.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,13 +78,12 @@
 		367E1DA02096D8B600271111 /* ballRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ballRed.png; sourceTree = "<group>"; };
 		367E1DA32096FB0200271111 /* launch.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = launch.caf; sourceTree = "<group>"; };
 		367E1DA5209709C100271111 /* whack.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = whack.caf; sourceTree = "<group>"; };
+		3696A6F0209B2A8400F033D9 /* icon@180.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "icon@180.jpg"; sourceTree = "<group>"; };
 		36E8AA8320970B96003A38AE /* bubbleBlueSliceHit.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = bubbleBlueSliceHit.sks; sourceTree = "<group>"; };
 		36E8AA8520970BCC003A38AE /* bubbleGreenSliceHit.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = bubbleGreenSliceHit.sks; sourceTree = "<group>"; };
 		36E8AA8720970C05003A38AE /* bubbleBlackSliceHit.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = bubbleBlackSliceHit.sks; sourceTree = "<group>"; };
 		36E8AA8920970C29003A38AE /* bubblePinkSliceHit.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = bubblePinkSliceHit.sks; sourceTree = "<group>"; };
 		36E8AA8B20970C4E003A38AE /* bubbleRedSliceHit.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = bubbleRedSliceHit.sks; sourceTree = "<group>"; };
-		36E8AA9120994773003A38AE /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
-		36E8AA9520995494003A38AE /* MenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MenuScene.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,10 +129,8 @@
 				367E1D7B2096C66400271111 /* Content */,
 				367E1D632096C5C100271111 /* AppDelegate.swift */,
 				367E1D652096C5C100271111 /* GameScene.sks */,
-				36E8AA9520995494003A38AE /* MenuScene.sks */,
 				367E1D672096C5C100271111 /* Actions.sks */,
 				367E1D692096C5C100271111 /* GameScene.swift */,
-				36E8AA9120994773003A38AE /* MenuScene.swift */,
 				367E1D842096D36700271111 /* Helper.swift */,
 				367E1D6B2096C5C100271111 /* GameViewController.swift */,
 				367E1D6D2096C5C100271111 /* Main.storyboard */,
@@ -148,6 +144,7 @@
 		367E1D7B2096C66400271111 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				3696A6F0209B2A8400F033D9 /* icon@180.jpg */,
 				367E1D7C2096C67600271111 /* sliceBackground.png */,
 				367E1D7D2096C67600271111 /* sliceBackground@2x.png */,
 				367E1D812096C96000271111 /* noBubblePop.png */,
@@ -241,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				367E1D992096D89100271111 /* ballGreen.png in Resources */,
+				3696A6F1209B2A8400F033D9 /* icon@180.jpg in Resources */,
 				367E1D9E2096D89C00271111 /* ballPink@2x.png in Resources */,
 				367E1D922096D86000271111 /* ballBlack@2x.png in Resources */,
 				367E1D6F2096C5C100271111 /* Main.storyboard in Resources */,
@@ -263,7 +261,6 @@
 				367E1D832096C96000271111 /* noBubblePop.png in Resources */,
 				367E1D912096D86000271111 /* ballBlack.png in Resources */,
 				367E1D822096C96000271111 /* sliceLife@2x.png in Resources */,
-				36E8AA9620995494003A38AE /* MenuScene.sks in Resources */,
 				367E1D9D2096D89C00271111 /* ballPink.png in Resources */,
 				36E8AA8420970B96003A38AE /* bubbleBlueSliceHit.sks in Resources */,
 				367E1D742096C5C300271111 /* LaunchScreen.storyboard in Resources */,
@@ -283,7 +280,6 @@
 			files = (
 				367E1D6A2096C5C100271111 /* GameScene.swift in Sources */,
 				367E1D6C2096C5C100271111 /* GameViewController.swift in Sources */,
-				36E8AA9220994773003A38AE /* MenuScene.swift in Sources */,
 				367E1D642096C5C100271111 /* AppDelegate.swift in Sources */,
 				367E1D852096D36700271111 /* Helper.swift in Sources */,
 			);
@@ -439,7 +435,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "UTS.Assignment-2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -457,7 +453,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "UTS.Assignment-2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

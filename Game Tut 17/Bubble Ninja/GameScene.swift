@@ -5,8 +5,16 @@
 //  Created by Clint Sellen on 30/4/18.
 //  Copyright © 2018 UTS. All rights reserved.
 //
-//Reference code: https://www.hackingwithswift.com/read
-//
+//References
+//https://www.hackingwithswift.com/read
+//https://github.com/Bashta/SpritekitSceneDelegation
+//https://code.tutsplus.com/tutorials/game-center-and-leaderboards-for-your-ios-app--cms-27488
+//https://www.swiftbysundell.com/posts/using-spritekit-to-create-animations-in-swift
+//http://joyfulgames.io/saving-spritekit-game-data-swift-easy-nscoder/
+//https://b4sht4.wordpress.com/2014/12/02/implementing-a-delegate-pattern-between-spritekit-scenes/
+//https://help.apple.com/xcode/mac/current/#/devea503dbda
+//https://stackoverflow.com/questions/3087089/xcode-build-and-archive-menu-item-disabled
+//https://developer.apple.com/documentation/gamekit/gkplayer/1520695-displayname
 
 import SpriteKit
 import GameplayKit
@@ -22,15 +30,15 @@ enum SequenceType: Int {
 
 class GameScene: SKScene {
     
-//    @IBOutlet var gameScene: SKView!
-//    @IBOutlet weak var finalGameScore: UILabel!
-    
-    //    Declare delegate
+    weak var viewController: GameViewController!
+//    Declare delegate
     var gameSceneDelegate: GameSceneDelegate?
 // View Parameters
-    let viewWidth = 1024
-    let viewHeight = 750
-// Slice variables for touch
+    var viewWidth = 1024
+    var viewHeight = 750
+//    var viewWidth: Int = 10
+//    var viewHeight: Int = 10
+    // Slice variables for touch
     var activeSlicePoints = [CGPoint]()
     var activeSliceBG: SKShapeNode!
     var activeSliceFG: SKShapeNode!
@@ -59,7 +67,7 @@ class GameScene: SKScene {
 // Game timer menu
     let clockLabel = SKLabelNode(fontNamed: "Avenir Next Condensed Bold")
     var gameTimer: Timer!
-    var gameTime = 20
+    var gameTime = 30
 // End game
     var gameEnded = false
 // Game score menu
@@ -458,7 +466,7 @@ class GameScene: SKScene {
         
         var bubble: SKSpriteNode
         
-        let bubbleType = RandomDouble(min: 1, max: 100)
+        let bubbleType = RandomDouble(min: 0, max: 99)
         
         switch bubbleType {
         case 0..<40:
@@ -487,7 +495,7 @@ class GameScene: SKScene {
         activeBubbles.append(bubble)
         
 // Randomise bubble posiion
-        let randomPosition = CGPoint(x: RandomInt(min: 64, max: 960), y: -128)
+        let randomPosition = CGPoint(x: RandomInt(min: 64, max: 960), y: -10)
         bubble.position = randomPosition
         
 // Randomise bubble angle velocity

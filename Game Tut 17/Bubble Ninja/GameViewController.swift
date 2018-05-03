@@ -13,47 +13,53 @@ import GameKit
 
 
 class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterControllerDelegate {
-        
-    /* Views */
-    @IBOutlet weak var scoreLabel: UILabel!
     
-    @IBOutlet weak var nameLabel: UILabel!
+    var currentGame: GameScene!
     
-    /* Variables */
+//  GameKit Variables
     var gcEnabled = Bool() // Check if the user has Game Center enabled
     var gcDefaultLeaderBoard = String() // Check the default leaderboardID
     var displayName = String()
     
-    var score = 0
-    
-    // IMPORTANT: replace the red string below with your own Leaderboard ID (the one you've set in iTunes Connect)
+// Define leader board
     let LEADERBOARD_ID = "com.score.bubbleNinja"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Call the GC authentication controller
-        authenticateLocalPlayer()
+// Call the Game Center authentication controller
+//        authenticateLocalPlayer()
         
-//        if let view = self.view as! SKView? {
-//            // Load the SKScene from 'GameScene.sks'
-////            if let scene = SKScene(fileNamed: "GameScene") {
-//            if let scene = GameScene(fileNamed: "GameScene") {
-//            //            let scene = GameScene(size: view.bounds.size)
-//                // Set the scale mode to scale to fit the window
+        if let view = self.view as! SKView? {
+            // Load the SKScene from 'GameScene.sks'
+            if let scene = GameScene(fileNamed: "GameScene") {
+                
+//                if UIDevice.current.userInterfaceIdiom == .pad {
+//                    print("iPad")
+//                    scene.viewWidth = 1024
+//                    scene.viewHeight = 750
+//                } else if UIDevice.current.userInterfaceIdiom == .phone {
+//                    print("iPhone")
+//                    scene.viewWidth = 667
+//                    scene.viewHeight = 375
+//                }
+//                scene.viewHeight = Int(view.bounds.height)
+//                scene.viewWidth = Int(view.bounds.width)
+                // Set the scale mode to scale to fit the window
 //                scene.scaleMode = .aspectFill
+                scene.scaleMode = .fill
 //                scene.gameSceneDelegate = self
-//                // Present the scene
-//                view.presentScene(scene)
-////                skView.presentScene(scene)
-////                scene.gameSceneDelegate = self
-//
-//            }
-//            view.ignoresSiblingOrder = true
-//
-//            view.showsFPS = true
-//            view.showsNodeCount = true
-//        }
+                // Present the scene
+                view.presentScene(scene)
+                currentGame = scene //as! GameScene
+                currentGame.viewController = self
+                currentGame.gameSceneDelegate = self
+            }
+            view.ignoresSiblingOrder = true
+
+            view.showsFPS = true
+            view.showsNodeCount = true
+        }
     }
     
     // MARK: - AUTHENTICATE LOCAL PLAYER
@@ -92,12 +98,11 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
     // MARK: - ADD 10 POINTS TO THE SCORE AND SUBMIT THE UPDATED SCORE TO GAME CENTER
     @IBAction func addScoreAndSubmitToGC(_ sender: AnyObject) {
         // Add 10 points to current score
-        score += 10
-        scoreLabel.text = "\(score)"
-        nameLabel.text = displayName
+//        scoreLabel.text = "\(score)"
+//        nameLabel.text = displayName
         // Submit score to GC leaderboard
         let bestScoreInt = GKScore(leaderboardIdentifier: LEADERBOARD_ID)
-        bestScoreInt.value = Int64(score)
+//        bestScoreInt.value = Int64(score)
         GKScore.report([bestScoreInt]) { (error) in
             if error != nil {
                 print(error!.localizedDescription)
@@ -144,20 +149,22 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
     
     func gameOver() {
         print("Inside of gameOver()")
-        
-//        if let view = self.view as! SKView? {
-//            if let scene = MenuScene(fileNamed: "MenuScene") {
-//                //            let scene = GameScene(size: view.bounds.size)
-//                // Set the scale mode to scale to fit the window
-//                scene.scaleMode = .aspectFill
-////                scene.gameSceneDelegate = self
-//                // Present the scene
-//                let transition = SKTransition.moveIn(with: .right, duration: 0.5)
-//                view.presentScene(scene, transition: transition)
-//
+// Submit score to GC leaderboard
+//        let bestScoreInt = GKScore(leaderboardIdentifier: LEADERBOARD_ID)
+//        //        bestScoreInt.value = Int64(score)
+//        GKScore.report([bestScoreInt]) { (error) in
+//            if error != nil {
+//                print(error!.localizedDescription)
+//            } else {
+//                print("Best Score submitted to your Leaderboard!")
 //            }
 //        }
+//// Present Leader board
+//        let gcVC = GKGameCenterViewController()
+//        gcVC.gameCenterDelegate = self
+//        gcVC.viewState = .leaderboards
+//        gcVC.leaderboardIdentifier = LEADERBOARD_ID
+//        present(gcVC, animated: true, completion: nil)
     }
-    
-    
+//    What happens now???
 }
