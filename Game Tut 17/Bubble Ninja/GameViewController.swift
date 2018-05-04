@@ -131,7 +131,12 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
         currentGame.maxActiveBubbles = Int(maxBubbleCountSlider.value)
         menuView.isHidden = true
         currentGame.startTimer()
-        getBestScore()
+        if gcEnabled {
+            getBestScore()
+            currentGame.gameKitEnabled = true
+        } else {
+            currentGame.gameKitEnabled = false
+        }
     }
     
     @IBAction func maxBubleCountChanged(_ sender: Any) {
@@ -182,16 +187,18 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
         print("Inside of gameOver()")
         menuView.isHidden = false
 // Submit score to GC leaderboard
-        let bestScoreInt = GKScore(leaderboardIdentifier: LEADERBOARD_ID)
-        bestScoreInt.value = Int64(currentGame.finalScore)
-        GKScore.report([bestScoreInt]) { (error) in
-            if error != nil {
-                print(error!.localizedDescription)
-            } else {
-                print("Best Score submitted to your Leaderboard!")
+        if gcEnabled {
+            let bestScoreInt = GKScore(leaderboardIdentifier: LEADERBOARD_ID)
+            bestScoreInt.value = Int64(currentGame.finalScore)
+            GKScore.report([bestScoreInt]) { (error) in
+                if error != nil {
+                    print(error!.localizedDescription)
+                } else {
+                    print("Best Score submitted to your Leaderboard!")
+                }
             }
-        }
-        showScoreBoard()
+            showScoreBoard()
+        } 
     }
     
     func showScoreBoard() {

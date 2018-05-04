@@ -33,6 +33,7 @@ class GameScene: SKScene {
     weak var viewController: GameViewController!
 //    Declare delegate
     var gameSceneDelegate: GameSceneDelegate?
+    var gameKitEnabled: Bool = true
 // View Parameters
     var viewWidth = 1024
     var viewHeight = 750
@@ -331,7 +332,9 @@ class GameScene: SKScene {
     @objc func updateStartTimer() {
         if startTime == 1 {
             resetGame()
-            createTopScore()
+            if gameKitEnabled {
+                createTopScore()
+            }
             createScore()
             createlastBubblePop(imageName: "noBubblePop")
             createSlices()
@@ -376,7 +379,9 @@ class GameScene: SKScene {
             finalScore = Int(score)
 // Go to menu
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [unowned self] in
-                self.topScoreLabel.removeFromParent()
+                if self.gameKitEnabled {
+                    self.topScoreLabel.removeFromParent()
+                }
                 self.clockLabel.removeAllActions()
                 self.clockLabel.fontColor = UIColor.white
                 self.gameScore.removeFromParent()
