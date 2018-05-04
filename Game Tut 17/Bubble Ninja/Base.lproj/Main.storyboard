@@ -45,9 +45,9 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vFR-Fq-1Mc">
                                                         <rect key="frame" x="10" y="10" width="1072" height="297.5"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adjust Maximum Bubble Count" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QcB-xx-OVP">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adjust Maximum Bubble Count" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="QcB-xx-OVP">
                                                                 <rect key="frame" x="0.0" y="0.0" width="1072" height="59.5"/>
-                                                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
+                                                                <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="20"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -64,6 +64,9 @@
                                                                         <rect key="frame" x="358.5" y="0.0" width="355" height="90"/>
                                                                         <color key="minimumTrackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="thumbTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <connections>
+                                                                            <action selector="maxBubleCountChanged:" destination="BV1-FR-VrT" eventType="valueChanged" id="8UM-yC-fTQ"/>
+                                                                        </connections>
                                                                     </slider>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gyd-Pm-9xI">
                                                                         <rect key="frame" x="721.5" y="0.0" width="350.5" height="89"/>
@@ -74,9 +77,9 @@
                                                                     </label>
                                                                 </subviews>
                                                             </stackView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adjust Game Play Timer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yvz-y7-X4M">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adjust Game Play Timer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="Yvz-y7-X4M">
                                                                 <rect key="frame" x="0.0" y="148.5" width="1072" height="60"/>
-                                                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
+                                                                <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="20"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -93,6 +96,9 @@
                                                                         <rect key="frame" x="358.5" y="0.0" width="355" height="90"/>
                                                                         <color key="minimumTrackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="thumbTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <connections>
+                                                                            <action selector="gameTimerChanged:" destination="BV1-FR-VrT" eventType="valueChanged" id="IH4-qI-6og"/>
+                                                                        </connections>
                                                                     </slider>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEQ-U0-IDP">
                                                                         <rect key="frame" x="721.5" y="0.0" width="350.5" height="89"/>
@@ -129,6 +135,9 @@
                                                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="30"/>
                                                                 <color key="tintColor" red="1" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <state key="normal" title="Score Board"/>
+                                                                <connections>
+                                                                    <action selector="checkGCLeaderboard:" destination="BV1-FR-VrT" eventType="touchUpInside" id="fyu-ha-jaX"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IH3-yn-hpF">
                                                                 <rect key="frame" x="536" y="53" width="516" height="53"/>
@@ -136,6 +145,9 @@
                                                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="30"/>
                                                                 <color key="tintColor" red="0.0" green="0.45015209208683477" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <state key="normal" title="Play Game"/>
+                                                                <connections>
+                                                                    <action selector="playGame:" destination="BV1-FR-VrT" eventType="touchUpInside" id="sNx-q6-jEf"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -171,6 +183,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
                     </view>
+                    <connections>
+                        <outlet property="gameTimerLabel" destination="Yvz-y7-X4M" id="fh5-UX-YsD"/>
+                        <outlet property="gameTimerSlider" destination="eEh-qk-N1u" id="MG0-qj-j9g"/>
+                        <outlet property="maxBubbleCountLabel" destination="QcB-xx-OVP" id="T3i-KT-zW3"/>
+                        <outlet property="maxBubbleCountSlider" destination="YGW-jM-u99" id="ii4-bX-9D0"/>
+                        <outlet property="menuView" destination="bIu-4n-krB" id="2RH-6k-3qR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
@@ -178,6 +197,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="TitleLogo" width="700" height="250"/>
+        <image name="TitleLogo" width="350" height="125"/>
     </resources>
 </document>

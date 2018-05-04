@@ -37,6 +37,7 @@
 		367E1DA22096D8B600271111 /* ballRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 367E1DA02096D8B600271111 /* ballRed.png */; };
 		367E1DA42096FB0200271111 /* launch.caf in Resources */ = {isa = PBXBuildFile; fileRef = 367E1DA32096FB0200271111 /* launch.caf */; };
 		367E1DA6209709C100271111 /* whack.caf in Resources */ = {isa = PBXBuildFile; fileRef = 367E1DA5209709C100271111 /* whack.caf */; };
+		3693F148209C70200094B6A4 /* TitleLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3693F147209C70200094B6A4 /* TitleLogo.png */; };
 		3696A6F1209B2A8400F033D9 /* icon@180.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3696A6F0209B2A8400F033D9 /* icon@180.jpg */; };
 		36E8AA8420970B96003A38AE /* bubbleBlueSliceHit.sks in Resources */ = {isa = PBXBuildFile; fileRef = 36E8AA8320970B96003A38AE /* bubbleBlueSliceHit.sks */; };
 		36E8AA8620970BCD003A38AE /* bubbleGreenSliceHit.sks in Resources */ = {isa = PBXBuildFile; fileRef = 36E8AA8520970BCC003A38AE /* bubbleGreenSliceHit.sks */; };
@@ -78,6 +79,7 @@
 		367E1DA02096D8B600271111 /* ballRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ballRed.png; sourceTree = "<group>"; };
 		367E1DA32096FB0200271111 /* launch.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = launch.caf; sourceTree = "<group>"; };
 		367E1DA5209709C100271111 /* whack.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = whack.caf; sourceTree = "<group>"; };
+		3693F147209C70200094B6A4 /* TitleLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleLogo.png; sourceTree = "<group>"; };
 		3696A6F0209B2A8400F033D9 /* icon@180.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "icon@180.jpg"; sourceTree = "<group>"; };
 		36E8AA8320970B96003A38AE /* bubbleBlueSliceHit.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = bubbleBlueSliceHit.sks; sourceTree = "<group>"; };
 		36E8AA8520970BCC003A38AE /* bubbleGreenSliceHit.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = bubbleGreenSliceHit.sks; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				36E8AA8920970C29003A38AE /* bubblePinkSliceHit.sks */,
 				36E8AA8B20970C4E003A38AE /* bubbleRedSliceHit.sks */,
 				3652D10B20970AE400343F1C /* spark.png */,
+				3693F147209C70200094B6A4 /* TitleLogo.png */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				367E1D952096D87D00271111 /* ballCyan@2x.png in Resources */,
 				367E1DA22096D8B600271111 /* ballRed.png in Resources */,
 				367E1D712096C5C300271111 /* Assets.xcassets in Resources */,
+				3693F148209C70200094B6A4 /* TitleLogo.png in Resources */,
 				36E8AA8A20970C29003A38AE /* bubblePinkSliceHit.sks in Resources */,
 				36E8AA8820970C05003A38AE /* bubbleBlackSliceHit.sks in Resources */,
 				367E1D832096C96000271111 /* noBubblePop.png in Resources */,

@@ -29,15 +29,13 @@ enum SequenceType: Int {
 }
 
 class GameScene: SKScene {
-    
+// Declere view controller
     weak var viewController: GameViewController!
 //    Declare delegate
     var gameSceneDelegate: GameSceneDelegate?
 // View Parameters
     var viewWidth = 1024
     var viewHeight = 750
-//    var viewWidth: Int = 10
-//    var viewHeight: Int = 10
     // Slice variables for touch
     var activeSlicePoints = [CGPoint]()
     var activeSliceBG: SKShapeNode!
@@ -55,10 +53,13 @@ class GameScene: SKScene {
     var maxActiveBubbles: Int = 15
     var multiplierLabel: SKLabelNode!
     var addToScoreLabel: SKLabelNode!
+    var topScoreLabel: SKLabelNode!
+    var topScore = 0
 // Start countdown
     let startTimerLable = SKLabelNode(fontNamed: "Avenir Next Condensed Bold")
     var startCountDown: Timer!
     var startTime = 3
+    var istimerAnimationOn: Bool = false
 // Last bubble popped menu
     var lastBubbblePopImageContainer = [SKSpriteNode]()
     var lastPoppedName: String = "No Popped"
@@ -70,6 +71,7 @@ class GameScene: SKScene {
     var gameTime = 30
 // End game
     var gameEnded = false
+    var finalScore = 0
 // Game score menu
     var gameScore: SKLabelNode!
     var score: Float = 0 {
@@ -80,55 +82,15 @@ class GameScene: SKScene {
     
     
     override func didMove(to view: SKView) {
-//  Set the background
-        let background = SKSpriteNode(imageNamed: "sliceBackground")
-        background.position = CGPoint(x: viewWidth/2, y: viewHeight/2)
-        background.blendMode = .replace
-        background.zPosition = -2
-        addChild(background)
-// Set the score multiplier
-        multiplierLabel = SKLabelNode(fontNamed: "Avenir Next Condensed Bold")
-        multiplierLabel.text = "1.5x"
-        multiplierLabel.horizontalAlignmentMode = .center
-        multiplierLabel.verticalAlignmentMode = .center
-        multiplierLabel.position = CGPoint(x: viewWidth/2, y: Int(Float(viewHeight)*0.8))
-        multiplierLabel.fontSize = 120
-        multiplierLabel.alpha = 0
-        multiplierLabel.zPosition = -1
-        addChild(multiplierLabel)
-        
-        addToScoreLabel = SKLabelNode(fontNamed: "Avenir Next Condensed Bold")
-//        addToScoreLabel.text = "addToScoreLabel"
-        addToScoreLabel.horizontalAlignmentMode = .right
-        addToScoreLabel.verticalAlignmentMode = .center
-        addToScoreLabel.position = CGPoint(x: viewWidth - 30, y: viewHeight/2)
-        addToScoreLabel.fontSize = 60
-        addToScoreLabel.alpha = 0
-        addToScoreLabel.zPosition = -1
-//        addToScoreLabel.fontColor = UIColor.blue
-        addChild(addToScoreLabel)
-        
-// Set the physics
-        physicsWorld.gravity = CGVector(dx: 0, dy: gravity)
-        physicsWorld.speed = 0.5
-        
-// Initialise the sequence of bubbles
-        sequence = [.one, .halfMax, .max, .chain, .fastChain]
-        for _ in 0 ... 1000 {
-            let nextSequence = SequenceType(rawValue: RandomInt(min: 0, max: 4))!
-            sequence.append(nextSequence)
-        }
-
-// Wait 1/2 a second to let the page load and start the countdown
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [unowned self] in
-            self.startTimer()
-        }
+        setBackGround()
+        setInteractiveLabels()
+        resetGame()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
-// Clear view of wxisting slices
+// Clear view of existing slices
         activeSlicePoints.removeAll(keepingCapacity: true)
         
 // Read the touch location
@@ -180,7 +142,7 @@ class GameScene: SKScene {
                 
 //  Check if consecutive colours were popped, apply score multiplier and show label if true
                 if lastPoppedName == nodeName {
-                    gameTime += 1
+//                    gameTime += 1
                     pointsMultiplier = 1.5
                     multiplierLabel.alpha = 0.8
                     animateNode(multiplierLabel)
@@ -280,6 +242,50 @@ class GameScene: SKScene {
             }
         }
     }
+    
+    func setBackGround()  {
+//  Set the background
+        let background = SKSpriteNode(imageNamed: "sliceBackground")
+        background.position = CGPoint(x: viewWidth/2, y: viewHeight/2)
+        background.blendMode = .replace
+        background.zPosition = -2
+        addChild(background)
+    }
+
+    func setInteractiveLabels()  {
+        // Set the score multiplier
+        multiplierLabel = SKLabelNode(fontNamed: "Avenir Next Condensed Bold")
+        multiplierLabel.text = "1.5x"
+        multiplierLabel.horizontalAlignmentMode = .center
+        multiplierLabel.verticalAlignmentMode = .center
+        multiplierLabel.position = CGPoint(x: viewWidth/2, y: Int(Float(viewHeight)*0.8))
+        multiplierLabel.fontSize = 120
+        multiplierLabel.alpha = 0
+        multiplierLabel.zPosition = -1
+        addChild(multiplierLabel)
+        
+        addToScoreLabel = SKLabelNode(fontNamed: "Avenir Next Condensed Bold")
+        addToScoreLabel.horizontalAlignmentMode = .right
+        addToScoreLabel.verticalAlignmentMode = .center
+        addToScoreLabel.position = CGPoint(x: viewWidth - 30, y: viewHeight/2)
+        addToScoreLabel.fontSize = 60
+        addToScoreLabel.alpha = 0
+        addToScoreLabel.zPosition = -1
+        addChild(addToScoreLabel)
+        
+    }
+    
+    func createTopScore() {
+        topScoreLabel = SKLabelNode(fontNamed: "Avenir Next Condensed Bold")
+        topScoreLabel.text = "Top Score: \(topScore)"
+        topScoreLabel.horizontalAlignmentMode = .center
+        topScoreLabel.verticalAlignmentMode = .top
+        topScoreLabel.position = CGPoint(x: viewWidth/2, y: viewHeight - 10)
+        topScoreLabel.fontSize = 40
+        topScoreLabel.alpha = 0.8
+        topScoreLabel.zPosition = -1
+        addChild(topScoreLabel)
+    }
 
 // Build score label
     func createScore() {
@@ -315,7 +321,7 @@ class GameScene: SKScene {
         startTimerLable.horizontalAlignmentMode = .center
         startTimerLable.verticalAlignmentMode = .center
         startTimerLable.position = CGPoint(x: viewWidth/2, y: viewHeight/2)
-        startTimerLable.fontSize = 100
+        startTimerLable.fontSize = 120
         addChild(startTimerLable)
         animateNode(startTimerLable)
         startCountDown = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(updateStartTimer)), userInfo: nil, repeats: true)
@@ -323,13 +329,16 @@ class GameScene: SKScene {
 
 // Initiate and start game
     @objc func updateStartTimer() {
-        if startTime == 1{
+        if startTime == 1 {
+            resetGame()
+            createTopScore()
             createScore()
             createlastBubblePop(imageName: "noBubblePop")
             createSlices()
             createTimer()
             startCountDown.invalidate()
             startTimerLable.removeFromParent()
+            startTimerLable.removeAllActions()
             runTimer()
             tossBubbles()
         } else {
@@ -349,6 +358,7 @@ class GameScene: SKScene {
         if gameTime < 1 {
             //Send alert to indicate time's up.
             gameTimer.invalidate()
+            startTime = 3
 // Move the clock to centre of screen
             clockLabel.horizontalAlignmentMode = .center
             clockLabel.verticalAlignmentMode = .center
@@ -363,17 +373,16 @@ class GameScene: SKScene {
             lastBubbblePopImage.removeFromParent()
 //  End game
             gameEnded = true
-            if let finalScore: String = gameScore.text {
-//                finalGameScore.text = finalScore
-                print(finalScore)
-            }
+            finalScore = Int(score)
 // Go to menu
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [unowned self] in
+                self.topScoreLabel.removeFromParent()
+                self.clockLabel.removeAllActions()
+                self.clockLabel.fontColor = UIColor.white
+                self.gameScore.removeFromParent()
+                self.clockLabel.removeFromParent()
                 self.gameSceneDelegate?.gameOver()
                 }
-//            }
-            
-            
         } else {
             gameTime -= 1
             if gameTime >= 60 {
@@ -384,6 +393,9 @@ class GameScene: SKScene {
             if gameTime <= 10 {
                 clockLabel.fontColor = UIColor.red
                 animateNode(clockLabel)
+                istimerAnimationOn = true
+            } else if istimerAnimationOn && gameTime > 10 {
+                clockLabel.removeAllActions()
             }
         }
     }
@@ -551,6 +563,14 @@ class GameScene: SKScene {
         }
     }
     
+    func initialiseBubblesSequence() {
+        sequence = [.one, .halfMax, .max, .chain, .fastChain]
+        for _ in 0 ... 1000 {
+            let nextSequence = SequenceType(rawValue: RandomInt(min: 0, max: 4))!
+            sequence.append(nextSequence)
+        }
+    }
+    
 // Throw bubbles onto the view
     func tossBubbles() {
 //  Diable if game is over
@@ -582,14 +602,17 @@ class GameScene: SKScene {
         sequencePosition += 1
         nextSequenceQueued = false
     }
-// End game
-    func endGame(triggeredByBomb: Bool) {
-        if gameEnded {
-            return
-        }        
-        gameEnded = true
-        physicsWorld.speed = 0
-        isUserInteractionEnabled = false
+    
+    func resetGame()  {
+        gameEnded = false
+        finalScore = 0
+        physicsWorld.gravity = CGVector(dx: 0, dy: gravity)
+        physicsWorld.speed = 0.5
+        popupTime = 0.5
+        gravity = -6.0
+        chainDelay = 3.0
+        initialiseBubblesSequence()
     }
+    
 
 }
