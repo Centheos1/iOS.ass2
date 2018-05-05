@@ -22,7 +22,6 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
     @IBOutlet weak var gameTimerSlider: UISlider!
     @IBOutlet weak var maxBubbleCountLabel: UILabel!
     @IBOutlet weak var gameTimerLabel: UILabel!
-    @IBOutlet weak var loginButton: UIButton!
     
 //  GameKit Variables
 // Check if the user has Game Center enabled
@@ -33,6 +32,7 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
     let localPlayer: GKLocalPlayer = GKLocalPlayer.localPlayer()
 // Define leader board
 //    let LEADERBOARD_ID = "com.score.bubbleNinja"
+// - My 3 year old son has the best score and its too hard to beat in simulator. I leave the test score board for demonstration
     let LEADERBOARD_ID = "com.score.bubbleNinjaTest"
     
     override func viewDidLoad() {
@@ -40,23 +40,19 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
         
 // Call the Game Center authentication controller
         authenticateLocalPlayer()
-//        if gcEnabled {
-//            loginButton.isHidden = true
-//        } else {
-//            loginButton.isHidden = false
-//        }
         menuView.isHidden = false
-        loginButton.isHidden = true
         
         if let view = self.view as! SKView? {
 // Load the SKScene from 'GameScene.sks'
             if let scene = GameScene(fileNamed: "GameScene") {
-                
+// Change the scale mode depending on the device. Best use is for iPad but will word on iPhone
                 if UIDevice.current.userInterfaceIdiom == .pad {
-                    print("iPad")
+// for testing
+//                    print("iPad")
                     scene.scaleMode = .aspectFill
                 } else if UIDevice.current.userInterfaceIdiom == .phone {
-                    print("iPhone")
+// for testing
+//                    print("iPhone")
                     scene.scaleMode = .fill
                 }
 // Present the scene
@@ -66,24 +62,41 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
                 currentGame.gameSceneDelegate = self
             }
             view.ignoresSiblingOrder = true
-
+//  Show the node tree information
             view.showsFPS = false
             view.showsNodeCount = false
         }
     }
     
+    override var shouldAutorotate: Bool {
+        return true
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return .allButUpsideDown
+        } else {
+            return .all
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Release any cached data, images, etc that aren't in use.
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
 // Authenticate Local Player
     func authenticateLocalPlayer() {
-//        let localPlayer: GKLocalPlayer = GKLocalPlayer.localPlayer()
-        
         localPlayer.authenticateHandler = {(ViewController, error) -> Void in
             if((ViewController) != nil) {
-// Show login if player is not logged in
                 self.present(ViewController!, animated: true, completion: nil)
             } else if (self.localPlayer.isAuthenticated) {
 // Player is already authenticated & logged in, load game center
-                self.gcEnabled = true
-            
+                self.gcEnabled = true            
 // Get the default leaderboard ID
                 self.localPlayer.loadDefaultLeaderboardIdentifier(completionHandler: { (leaderboardIdentifer, error) in
                 if error != nil { print(error!)
@@ -94,7 +107,7 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
                     self.displayName = self.localPlayer.displayName!
                 }
             } else {
-// Game center is not enabled on the users device
+// Game center is not enabled on the users device, no leader board or top score will be displayed
                 self.gcEnabled = false
                 print("Local player could not be authenticated!")
                 if error != nil {
@@ -103,20 +116,9 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
             }
         }
     }
-
-//    @IBAction func loginButtonTouched(_ sender: Any) {
-//        print("Login Button Touched")
-//        authenticateLocalPlayer()
-//        if gcEnabled {
-//            loginButton.isHidden = true
-//        } else {
-//            loginButton.isHidden = false
-//        }
-//    }
     
     @IBAction func playGame(_ sender: UIButton) {
-    
-        currentGame.gameTime = Int(gameTimerSlider.value)
+        currentGame.gameTime = Double(gameTimerSlider.value)
         currentGame.maxActiveBubbles = Int(maxBubbleCountSlider.value)
         menuView.isHidden = true
         currentGame.startTimer()
@@ -136,7 +138,6 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
         gameTimerLabel.text = "Game Time = \(Int(gameTimerSlider.value))"
     }
     
-    
 //  Open Game Center Leader Board
     @IBAction func checkGCLeaderboard(_ sender: AnyObject) {
         let gcVC = GKGameCenterViewController()
@@ -146,47 +147,18 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
         present(gcVC, animated: true, completion: nil)
     }
     
-    // Delegate to dismiss the GC controller
+// Delegate to dismiss the GC controller
     func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
         gameCenterViewController.dismiss(animated: true, completion: nil)
     }
     
-    override var shouldAutorotate: Bool {
-        return true
-    }
-
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return .allButUpsideDown
-        } else {
-            return .all
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
-    }
-
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-    
+//  Game scene passes to this function at the end of a game
     func gameOver() {
-        print("Inside of gameOver()")
+//  for testing
+//        print("Inside of gameOver()")
         menuView.isHidden = false
 // Submit score to GC leaderboard
         if gcEnabled {
-//            let bestScoreInt = GKScore(leaderboardIdentifier: LEADERBOARD_ID)
-//            bestScoreInt.value = Int64(currentGame.finalScore)
-//            GKScore.report([bestScoreInt]) { (error) in
-//                if error != nil {
-//                    print(error!.localizedDescription)
-//                } else {
-//                    print("Best Score submitted to your Leaderboard!")
-//                }
-//            }
-//            updateLeaderBoard()
             showScoreBoard()
         } 
     }
@@ -201,15 +173,16 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
     }
     
     func updateLeaderBoard(_ score: Int) {
-        print("updateLeaderBoard() score: \(score)")
+//  for testing
+//        print("updateLeaderBoard() score: \(score)")
         let bestScoreInt = GKScore(leaderboardIdentifier: LEADERBOARD_ID)
-//        bestScoreInt.value = Int64(currentGame.finalScore)
         bestScoreInt.value = Int64(score)
         GKScore.report([bestScoreInt]) { (error) in
             if error != nil {
                 print(error!.localizedDescription)
             } else {
-                print("Best Score submitted to your Leaderboard!")
+//  for testing
+//                print("Best Score submitted to your Leaderboard!")
             }
         }
     }

@@ -69,7 +69,7 @@ class GameScene: SKScene {
 // Game timer menu
     let clockLabel = SKLabelNode(fontNamed: "Avenir Next Condensed Bold")
     var gameTimer: Timer!
-    var gameTime = 30
+    var gameTime = 60.0
 // End game
     var gameEnded = false
     var finalScore = 0
@@ -143,7 +143,8 @@ class GameScene: SKScene {
                 
 //  Check if consecutive colours were popped, apply score multiplier and show label if true
                 if lastPoppedName == nodeName {
-//                    gameTime += 1
+//  Add a bonus time to game timer for a same bubble popped sequence
+                    gameTime += 0.5
                     pointsMultiplier = 1.5
                     multiplierLabel.alpha = 0.8
                     animateNode(multiplierLabel)
@@ -374,34 +375,45 @@ class GameScene: SKScene {
             gameScore.position = CGPoint(x: viewWidth/2, y: Int(Float(viewHeight)/1.5))
 //  Clear last bubble popped menu
             lastBubbblePopImage.removeFromParent()
+            if gameKitEnabled {
+                viewController.updateLeaderBoard(Int(score))
+            }
 //  End game
             gameEnded = true
-//            finalScore = Int(score)
-            viewController.updateLeaderBoard(Int(score))
 // Go to menu
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [unowned self] in
                 if self.gameKitEnabled {
                     self.topScoreLabel.removeFromParent()
+                    self.topScoreLabel.removeAllActions()
                 }
                 self.clockLabel.removeAllActions()
                 self.clockLabel.fontColor = UIColor.white
                 self.gameScore.removeFromParent()
+                self.score = 0.0
                 self.clockLabel.removeFromParent()
                 self.gameSceneDelegate?.gameOver()
                 }
         } else {
             gameTime -= 1
-            if gameTime >= 60 {
-                clockLabel.text = "Time: \(timeString(time: TimeInterval(gameTime)))"
+//  Formate timer label
+            if gameTime >= 60.0 {
+                clockLabel.text = "Time: \(timeString(time: TimeInterval(Int(gameTime))))"
             } else {
-                clockLabel.text = "Time: \(gameTime)"
+                clockLabel.text = "Time: \(Int(gameTime))"
             }
-            if gameTime <= 10 {
+// Animate the clock label when time is running out
+            if gameTime <= 10.0 {
                 clockLabel.fontColor = UIColor.red
                 animateNode(clockLabel)
                 istimerAnimationOn = true
-            } else if istimerAnimationOn && gameTime > 10 {
+            } else if istimerAnimationOn && gameTime > 10.0 {
+//  Disable animation - this is only used when time is added to the game timer for score multiplier
                 clockLabel.removeAllActions()
+            }
+//  Animate top score label if top score is achieved
+            if gameKitEnabled && Int(score) > topScore {
+                topScoreLabel.text = "New Top Score: \(Int(score))"
+                animateNode(topScoreLabel)
             }
         }
     }
@@ -513,26 +525,26 @@ class GameScene: SKScene {
         activeBubbles.append(bubble)
         
 // Randomise bubble posiion
-        let randomPosition = CGPoint(x: RandomInt(min: 64, max: 960), y: -10)
+        let randomPosition = CGPoint(x: RandomInt(min: 20, max: 1000), y: -10)
         bubble.position = randomPosition
         
 // Randomise bubble angle velocity
-        let randomAngularVelocity = CGFloat(RandomInt(min: -6, max: 6)) / 2.0
+        let randomAngularVelocity = CGFloat(RandomInt(min: -10, max: 10)) / 2.0
         var randomXVelocity = 0
         
 // Randomise bubble horizontail velocity
         if randomPosition.x < 256 {
-            randomXVelocity = RandomInt(min: 8, max: 15)
+            randomXVelocity = RandomInt(min: 3, max: 10)
         } else if randomPosition.x < 512 {
-            randomXVelocity = RandomInt(min: 3, max: 5)
+            randomXVelocity = RandomInt(min: 1, max: 5)
         } else if randomPosition.x < 768 {
-            randomXVelocity = -RandomInt(min: 3, max: 5)
+            randomXVelocity = -RandomInt(min: 1, max: 5)
         } else {
-            randomXVelocity = -RandomInt(min: 8, max: 15)
+            randomXVelocity = -RandomInt(min: 3, max: 10)
         }
         
 // Randomise bubble verticle velocity
-        let randomYVelocity = RandomInt(min: 24, max: 32)
+        let randomYVelocity = RandomInt(min: 20, max: 40)
         
 // Apply physics
         bubble.physicsBody = SKPhysicsBody(circleOfRadius: bubble.size.width / 2.0)
@@ -586,8 +598,8 @@ class GameScene: SKScene {
 // Increase game difficulty as game progresses
         popupTime *= 0.951
         chainDelay *= 0.9
-        physicsWorld.speed *= 1.05
-        gravity *= 1.01
+        physicsWorld.speed *= 1.07
+        gravity *= 1.015
         physicsWorld.gravity = CGVector(dx: 0, dy: gravity)
         
         let sequenceType = sequence[sequencePosition]
