@@ -376,7 +376,8 @@ class GameScene: SKScene {
             lastBubbblePopImage.removeFromParent()
 //  End game
             gameEnded = true
-            finalScore = Int(score)
+//            finalScore = Int(score)
+            viewController.updateLeaderBoard(Int(score))
 // Go to menu
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [unowned self] in
                 if self.gameKitEnabled {

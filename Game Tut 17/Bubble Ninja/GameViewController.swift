@@ -22,49 +22,44 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
     @IBOutlet weak var gameTimerSlider: UISlider!
     @IBOutlet weak var maxBubbleCountLabel: UILabel!
     @IBOutlet weak var gameTimerLabel: UILabel!
+    @IBOutlet weak var loginButton: UIButton!
     
-    //  GameKit Variables
-    var gcEnabled = Bool() // Check if the user has Game Center enabled
-    var gcDefaultLeaderBoard = String() // Check the default leaderboardID
+//  GameKit Variables
+// Check if the user has Game Center enabled
+    var gcEnabled = Bool()
+// Check the default leaderboardID
+    var gcDefaultLeaderBoard = String()
     var displayName = String()
     let localPlayer: GKLocalPlayer = GKLocalPlayer.localPlayer()
 // Define leader board
-    let LEADERBOARD_ID = "com.score.bubbleNinja"
+//    let LEADERBOARD_ID = "com.score.bubbleNinja"
+    let LEADERBOARD_ID = "com.score.bubbleNinjaTest"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
 // Call the Game Center authentication controller
         authenticateLocalPlayer()
-        
+//        if gcEnabled {
+//            loginButton.isHidden = true
+//        } else {
+//            loginButton.isHidden = false
+//        }
         menuView.isHidden = false
+        loginButton.isHidden = true
         
         if let view = self.view as! SKView? {
-            // Load the SKScene from 'GameScene.sks'
+// Load the SKScene from 'GameScene.sks'
             if let scene = GameScene(fileNamed: "GameScene") {
                 
                 if UIDevice.current.userInterfaceIdiom == .pad {
                     print("iPad")
-//                    scene.size.height = 1024
-//                    scene.size.width = 750
-//                    scene.viewWidth = 1024
-//                    scene.viewHeight = 750
                     scene.scaleMode = .aspectFill
                 } else if UIDevice.current.userInterfaceIdiom == .phone {
                     print("iPhone")
-//                    scene.size.height = 667
-//                    scene.size.width = 375
-//                    scene.viewWidth = 667
-//                    scene.viewHeight = 375
-                  scene.scaleMode = .fill
+                    scene.scaleMode = .fill
                 }
-//                scene.viewHeight = Int(view.bounds.height)
-//                scene.viewWidth = Int(view.bounds.width)
-                // Set the scale mode to scale to fit the window
-//                scene.scaleMode = .aspectFill
-//                scene.scaleMode = .fill
-//                scene.gameSceneDelegate = self
-                // Present the scene
+// Present the scene
                 view.presentScene(scene)
                 currentGame = scene //as! GameScene
                 currentGame.viewController = self
@@ -77,18 +72,18 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
         }
     }
     
-    // MARK: - AUTHENTICATE LOCAL PLAYER
+// Authenticate Local Player
     func authenticateLocalPlayer() {
 //        let localPlayer: GKLocalPlayer = GKLocalPlayer.localPlayer()
         
         localPlayer.authenticateHandler = {(ViewController, error) -> Void in
             if((ViewController) != nil) {
-                // 1. Show login if player is not logged in
+// Show login if player is not logged in
                 self.present(ViewController!, animated: true, completion: nil)
             } else if (self.localPlayer.isAuthenticated) {
 // Player is already authenticated & logged in, load game center
                 self.gcEnabled = true
-                
+            
 // Get the default leaderboard ID
                 self.localPlayer.loadDefaultLeaderboardIdentifier(completionHandler: { (leaderboardIdentifer, error) in
                 if error != nil { print(error!)
@@ -109,24 +104,18 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
         }
     }
 
-// SUBMIT THE UPDATED SCORE TO GAME CENTER
-//    @IBAction func addScoreAndSubmitToGC(_ sender: AnyObject) {
-//        // Add 10 points to current score
-////        scoreLabel.text = "\(score)"
-////        nameLabel.text = displayName
-//        // Submit score to GC leaderboard
-//        let bestScoreInt = GKScore(leaderboardIdentifier: LEADERBOARD_ID)
-////        bestScoreInt.value = Int64(score)
-//        GKScore.report([bestScoreInt]) { (error) in
-//            if error != nil {
-//                print(error!.localizedDescription)
-//            } else {
-//                print("Best Score submitted to your Leaderboard!")
-//            }
+//    @IBAction func loginButtonTouched(_ sender: Any) {
+//        print("Login Button Touched")
+//        authenticateLocalPlayer()
+//        if gcEnabled {
+//            loginButton.isHidden = true
+//        } else {
+//            loginButton.isHidden = false
 //        }
 //    }
     
     @IBAction func playGame(_ sender: UIButton) {
+    
         currentGame.gameTime = Int(gameTimerSlider.value)
         currentGame.maxActiveBubbles = Int(maxBubbleCountSlider.value)
         menuView.isHidden = true
@@ -148,7 +137,7 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
     }
     
     
-    // MARK: - OPEN GAME CENTER LEADERBOARD
+//  Open Game Center Leader Board
     @IBAction func checkGCLeaderboard(_ sender: AnyObject) {
         let gcVC = GKGameCenterViewController()
         gcVC.gameCenterDelegate = self
@@ -188,21 +177,22 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
         menuView.isHidden = false
 // Submit score to GC leaderboard
         if gcEnabled {
-            let bestScoreInt = GKScore(leaderboardIdentifier: LEADERBOARD_ID)
-            bestScoreInt.value = Int64(currentGame.finalScore)
-            GKScore.report([bestScoreInt]) { (error) in
-                if error != nil {
-                    print(error!.localizedDescription)
-                } else {
-                    print("Best Score submitted to your Leaderboard!")
-                }
-            }
+//            let bestScoreInt = GKScore(leaderboardIdentifier: LEADERBOARD_ID)
+//            bestScoreInt.value = Int64(currentGame.finalScore)
+//            GKScore.report([bestScoreInt]) { (error) in
+//                if error != nil {
+//                    print(error!.localizedDescription)
+//                } else {
+//                    print("Best Score submitted to your Leaderboard!")
+//                }
+//            }
+//            updateLeaderBoard()
             showScoreBoard()
         } 
     }
     
     func showScoreBoard() {
-        // Present Leader board
+// Present Leader board
         let gcVC = GKGameCenterViewController()
         gcVC.gameCenterDelegate = self
         gcVC.viewState = .leaderboards
@@ -210,30 +200,35 @@ class GameViewController: UIViewController, GameSceneDelegate, GKGameCenterContr
         present(gcVC, animated: true, completion: nil)
     }
     
-    func loadScores(completionHandler: (([GKScore]?, Error?) -> Void)? = nil) {
-        
-    }
-    
-    func loadLeaderboards(completionHandler: (([GKLeaderboard]?, Error?) -> Void)? = nil) {
-        
+    func updateLeaderBoard(_ score: Int) {
+        print("updateLeaderBoard() score: \(score)")
+        let bestScoreInt = GKScore(leaderboardIdentifier: LEADERBOARD_ID)
+//        bestScoreInt.value = Int64(currentGame.finalScore)
+        bestScoreInt.value = Int64(score)
+        GKScore.report([bestScoreInt]) { (error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else {
+                print("Best Score submitted to your Leaderboard!")
+            }
+        }
     }
     
     func getBestScore() {
-        
+//  get the best score from the leader board
         let leaderBoardRequest = GKLeaderboard()
         leaderBoardRequest.identifier = LEADERBOARD_ID
         leaderBoardRequest.playerScope = GKLeaderboardPlayerScope.global
         leaderBoardRequest.timeScope = GKLeaderboardTimeScope.allTime
-        
         leaderBoardRequest.loadScores(completionHandler: { (score, error) in
             if error != nil { print(error!)
             } else if score != nil {
                 if let topScore = leaderBoardRequest.scores?.first?.value {
-                    print("\rBestScore: \(topScore)")
+// for testing
+//                    print("\rBestScore: \(topScore)")
                     self.currentGame.topScore = Int(topScore)
                 }
             }
         })
-        
     }
 }

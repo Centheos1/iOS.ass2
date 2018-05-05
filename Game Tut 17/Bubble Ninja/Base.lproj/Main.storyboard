@@ -130,7 +130,7 @@
                                                         <rect key="frame" x="20" y="0.0" width="1052" height="159"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWm-Lv-yVw">
-                                                                <rect key="frame" x="0.0" y="53" width="516" height="53"/>
+                                                                <rect key="frame" x="0.0" y="53" width="337.5" height="53"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="30"/>
                                                                 <color key="tintColor" red="1" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -139,8 +139,16 @@
                                                                     <action selector="checkGCLeaderboard:" destination="BV1-FR-VrT" eventType="touchUpInside" id="fyu-ha-jaX"/>
                                                                 </connections>
                                                             </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YDK-gV-RSu">
+                                                                <rect key="frame" x="357.5" y="53" width="337" height="53"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="30"/>
+                                                                <state key="normal" title="Login">
+                                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                            </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IH3-yn-hpF">
-                                                                <rect key="frame" x="536" y="53" width="516" height="53"/>
+                                                                <rect key="frame" x="714.5" y="53" width="337.5" height="53"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="30"/>
                                                                 <color key="tintColor" red="0.0" green="0.45015209208683477" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -186,6 +194,7 @@
                     <connections>
                         <outlet property="gameTimerLabel" destination="Yvz-y7-X4M" id="fh5-UX-YsD"/>
                         <outlet property="gameTimerSlider" destination="eEh-qk-N1u" id="MG0-qj-j9g"/>
+                        <outlet property="loginButton" destination="YDK-gV-RSu" id="jS9-oN-N1G"/>
                         <outlet property="maxBubbleCountLabel" destination="QcB-xx-OVP" id="T3i-KT-zW3"/>
                         <outlet property="maxBubbleCountSlider" destination="YGW-jM-u99" id="ii4-bX-9D0"/>
                         <outlet property="menuView" destination="bIu-4n-krB" id="2RH-6k-3qR"/>
